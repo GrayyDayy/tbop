@@ -1,10 +1,12 @@
 import pygame
+import Projectiles
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 dt = 0
+bullets = []
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
@@ -36,6 +38,12 @@ while running:
         pygame.draw.circle(screen, "blue", player_pos, 10)
     if keys[pygame.K_RIGHT]:
         pygame.draw.circle(screen, "blue", player_pos, 10)
+
+    for bullet in bullets:
+        if 500 > bullet.x > 0:
+            bullet.x += 1
+        else:
+            bullets.pop(bullets.index(bullet))
 
     pygame.display.flip()
 
