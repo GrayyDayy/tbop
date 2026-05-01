@@ -15,7 +15,9 @@ while running:
 
     screen.fill("white")
 
-    pygame.draw.circle(screen, "red", player_pos, 40)
+    pygame.draw.circle(screen, "green", player_pos, 40)
+    pygame.draw.circle(screen, "blue", player_pos, 20)
+    pygame.draw.circle(screen, "black", player_pos, 10)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
@@ -26,6 +28,14 @@ while running:
         player_pos.x -= 300 * dt
     if keys[pygame.K_d]:
         player_pos.x += 300 * dt
+    if keys[pygame.K_UP]:
+        pygame.draw.circle(screen, "blue", player_pos, 10)
+    if keys[pygame.K_DOWN]:
+        pygame.draw.circle(screen, "blue", player_pos, 10)
+    if keys[pygame.K_LEFT]:
+        pygame.draw.circle(screen, "blue", player_pos, 10)
+    if keys[pygame.K_RIGHT]:
+        pygame.draw.circle(screen, "blue", player_pos, 10)
 
     pygame.display.flip()
 
