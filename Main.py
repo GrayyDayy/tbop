@@ -1,5 +1,6 @@
 import pygame
 from Projectiles import Projectile
+import time
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
@@ -7,6 +8,8 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 bullets = []
+cooldown = 1
+timesinceshot = 0
 shootingleft = False
 shootingright = False
 shootingup = False
@@ -15,6 +18,9 @@ shootingdown = False
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
 while running:
+    currenttime = time.time()
+    print(currenttime)
+    print(timesinceshot)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -48,7 +54,8 @@ while running:
     if keys[pygame.K_d]:
         player_pos.x += 300 * dt
     if keys[pygame.K_UP]:
-        if not bullets:
+        if currenttime - timesinceshot > cooldown:
+            timesinceshot = currenttime
             shootingleft = False
             shootingright = False
             shootingup = True
@@ -56,7 +63,8 @@ while running:
             if len(bullets) < 6:
                 bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",-5))
     if keys[pygame.K_DOWN]:
-        if not bullets:
+        if currenttime - timesinceshot > cooldown:
+            timesinceshot = currenttime
             shootingleft = False
             shootingright = False
             shootingup = False
@@ -64,7 +72,8 @@ while running:
             if len(bullets) < 6:
                 bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",5))
     if keys[pygame.K_LEFT]:
-        if not bullets:
+        if currenttime - timesinceshot > cooldown:
+            timesinceshot = currenttime
             shootingleft = True
             shootingright = False
             shootingup = False
@@ -72,7 +81,8 @@ while running:
             if len(bullets) < 6:
                 bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",-5))
     if keys[pygame.K_RIGHT]:
-        if not bullets:
+        if currenttime - timesinceshot > cooldown:
+            timesinceshot = currenttime
             shootingleft = False
             shootingright = True
             shootingup = False
