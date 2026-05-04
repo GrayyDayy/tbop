@@ -1,5 +1,5 @@
 import pygame
-import Projectiles
+from Projectiles import Projectile
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
@@ -7,6 +7,10 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 bullets = []
+shootingleft = False
+shootingright = False
+shootingup = False
+shootingdown = False
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
@@ -14,6 +18,19 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    for bullet in bullets:
+        if shootingleft or shootingright:
+            if 1280 > bullet.x > 0:
+                bullet.x += bullet.velocity
+            else:
+                bullets.pop(bullets.index(bullet))
+        if shootingup or shootingdown:
+            if 720 > bullet.y > 0:
+                bullet.y += bullet.velocity
+            else:
+                bullets.pop(bullets.index(bullet))
+
 
     screen.fill("white")
 
@@ -31,19 +48,42 @@ while running:
     if keys[pygame.K_d]:
         player_pos.x += 300 * dt
     if keys[pygame.K_UP]:
-        pygame.draw.circle(screen, "blue", player_pos, 10)
+        if not bullets:
+            shootingleft = False
+            shootingright = False
+            shootingup = True
+            shootingdown = False
+            if len(bullets) < 6:
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",-5))
     if keys[pygame.K_DOWN]:
-        pygame.draw.circle(screen, "blue", player_pos, 10)
+        if not bullets:
+            shootingleft = False
+            shootingright = False
+            shootingup = False
+            shootingdown = True
+            if len(bullets) < 6:
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",5))
     if keys[pygame.K_LEFT]:
-        pygame.draw.circle(screen, "blue", player_pos, 10)
+        if not bullets:
+            shootingleft = True
+            shootingright = False
+            shootingup = False
+            shootingdown = False
+            if len(bullets) < 6:
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",-5))
     if keys[pygame.K_RIGHT]:
-        pygame.draw.circle(screen, "blue", player_pos, 10)
+        if not bullets:
+            shootingleft = False
+            shootingright = True
+            shootingup = False
+            shootingdown = False
+            if len(bullets) < 6:
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",5))
+
+
 
     for bullet in bullets:
-        if 500 > bullet.x > 0:
-            bullet.x += 1
-        else:
-            bullets.pop(bullets.index(bullet))
+        bullet.draw(screen)
 
     pygame.display.flip()
 
