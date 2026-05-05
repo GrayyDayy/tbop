@@ -1,4 +1,12 @@
+from distutils.command.config import config
+
 import pygame
+import json
+
+with open ("config.json") as file:
+    config = json.load(file)
+
+player_speed = config["player_speed"]
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
@@ -21,13 +29,13 @@ while running:
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
-        player_pos.y -= 300 * dt
+        player_pos.y -= int(player_speed) * dt
     if keys[pygame.K_s]:
-        player_pos.y += 300 * dt
+        player_pos.y += int(player_speed) * dt
     if keys[pygame.K_a]:
-        player_pos.x -= 300 * dt
+        player_pos.x -= int(player_speed) * dt
     if keys[pygame.K_d]:
-        player_pos.x += 300 * dt
+        player_pos.x += int(player_speed) * dt
     if keys[pygame.K_UP]:
         pygame.draw.circle(screen, "blue", player_pos, 10)
     if keys[pygame.K_DOWN]:
@@ -40,5 +48,7 @@ while running:
     pygame.display.flip()
 
     dt = clock.tick(60) / 1000
+
+
 
 pygame.quit()
