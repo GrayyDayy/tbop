@@ -8,35 +8,23 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 bullets = []
-cooldown = 1
+cooldown = 0.5
 timesinceshot = 0
-shootingleft = False
-shootingright = False
-shootingup = False
-shootingdown = False
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
 while running:
     currenttime = time.time()
-    print(currenttime)
-    print(timesinceshot)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    for bullet in bullets:
-        if shootingleft or shootingright:
-            if 1280 > bullet.x > 0:
-                bullet.x += bullet.velocity
-            else:
-                bullets.pop(bullets.index(bullet))
-        if shootingup or shootingdown:
-            if 720 > bullet.y > 0:
-                bullet.y += bullet.velocity
-            else:
-                bullets.pop(bullets.index(bullet))
+    for bullet in bullets[:]:
+        bullet.x += bullet.vel_x
+        bullet.y += bullet.vel_y
 
+        if not (0 < bullet.x < 1280 and 0 < bullet.y < 720):
+            bullets.remove(bullet)
 
     screen.fill("white")
 
@@ -56,39 +44,23 @@ while running:
     if keys[pygame.K_UP]:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
-            shootingleft = False
-            shootingright = False
-            shootingup = True
-            shootingdown = False
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",-5))
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",0,-5))
     if keys[pygame.K_DOWN]:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
-            shootingleft = False
-            shootingright = False
-            shootingup = False
-            shootingdown = True
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",5))
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",0,5))
     if keys[pygame.K_LEFT]:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
-            shootingleft = True
-            shootingright = False
-            shootingup = False
-            shootingdown = False
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",-5))
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",-5,0))
     if keys[pygame.K_RIGHT]:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
-            shootingleft = False
-            shootingright = True
-            shootingup = False
-            shootingdown = False
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",5))
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",5,0))
 
 
 
