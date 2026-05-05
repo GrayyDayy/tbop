@@ -41,3 +41,4 @@ if response.headers.get("Content-Type", "").startswith("application/json"):
 
 else:
     print("Not JSON:", response.text)
+
