@@ -3,13 +3,14 @@ from Projectiles import Projectile
 import time
 
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode()
 clock = pygame.time.Clock()
 running = True
 dt = 0
 bullets = []
 cooldown = 0.5
 timesinceshot = 0
+screenheight, screenwidth = screen.get_size()
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
@@ -26,7 +27,7 @@ while running:
         if not (0 < bullet.x < 1280 and 0 < bullet.y < 720):
             bullets.remove(bullet)
 
-    screen.fill("white")
+    screen.blit(pygame.transform.scale(pygame.image.load("sprites/startroom.png"),(screenheight, screenwidth)), (0, 0), area=screen.get_rect())
 
     pygame.draw.circle(screen, "green", player_pos, 40)
     pygame.draw.circle(screen, "blue", player_pos, 20)
@@ -45,22 +46,22 @@ while running:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",0,-5))
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",0,-8))
     if keys[pygame.K_DOWN]:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",0,5))
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",0,8))
     if keys[pygame.K_LEFT]:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",-5,0))
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",-8,0))
     if keys[pygame.K_RIGHT]:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",5,0))
+                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",8,0))
 
 
 
