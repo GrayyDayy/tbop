@@ -10,7 +10,6 @@ dt = 0
 bullets = []
 cooldown = 0.5
 timesinceshot = 0
-screenheight, screenwidth = screen.get_size()
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
@@ -27,7 +26,7 @@ while running:
         if not (0 < bullet.x < screen.get_width() and 0 < bullet.y < screen.get_height()):
             bullets.remove(bullet)
 
-    screen.blit(pygame.transform.scale(pygame.image.load("sprites/startroom.png"),(screenheight, screenwidth)), (0, 0), area=screen.get_rect())
+    screen.blit(pygame.transform.scale(pygame.image.load("sprites/startroom.png"),(screen.get_width(), screen.get_height())), (0, 0), area=screen.get_rect())
 
     pygame.draw.circle(screen, "green", player_pos, 40)
     pygame.draw.circle(screen, "blue", player_pos, 20)
