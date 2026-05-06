@@ -6,7 +6,14 @@ import json
 with open("config.json") as file:
     config = json.load(file)
 
+player_health = config["player_health"]
 player_speed = config["player_speed"]
+bullet_speed = config["bullet_speed"]
+bullet_size = config["bullet_size"]
+bullet_color = config["bullet_color"]
+cooldown = config["cooldown"]
+
+
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
@@ -50,22 +57,22 @@ while running:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",0,-5))
+                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, 0, -bullet_speed))
     if keys[pygame.K_DOWN]:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",0,5))
+                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, 0, -bullet_speed))
     if keys[pygame.K_LEFT]:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",-5,0))
+                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, 0, -bullet_speed))
     if keys[pygame.K_RIGHT]:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y,12,"blue",5,0))
+                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, 0, -bullet_speed))
 
 
 

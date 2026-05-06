@@ -1,5 +1,10 @@
 {
-  "player_speed": 300
+  "player_speed": 300,
+  "player_health": 5,
+  "bullet_speed": 5,
+  "cooldown": 0.5,
+  "bullet_size": 12,
+  "bullet_color": "red"
 }
 
 
