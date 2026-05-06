@@ -24,7 +24,7 @@ while running:
         bullet.x += bullet.vel_x
         bullet.y += bullet.vel_y
 
-        if not (0 < bullet.x < 1280 and 0 < bullet.y < 720):
+        if not (0 < bullet.x < screen.get_width() and 0 < bullet.y < screen.get_height()):
             bullets.remove(bullet)
 
     screen.blit(pygame.transform.scale(pygame.image.load("sprites/startroom.png"),(screenheight, screenwidth)), (0, 0), area=screen.get_rect())
