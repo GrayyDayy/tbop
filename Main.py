@@ -1,7 +1,12 @@
 import pygame
 from Projectiles import Projectile
 import time
+import json
 
+with open("config.json") as file:
+    config = json.load(file)
+
+player_speed = config["player_speed"]
 pygame.init()
 screen = pygame.display.set_mode()
 clock = pygame.time.Clock()
@@ -51,25 +56,25 @@ while running:
         facingright = False
         facingup = True
         facingdown = False
-        player_pos.y -= 300 * dt
+        player_pos.y -= int(player_speed) * dt
     if keys[pygame.K_s]:
         facingleft = False
         facingright = False
         facingup = False
         facingdown = True
-        player_pos.y += 300 * dt
+        player_pos.y += int(player_speed) * dt
     if keys[pygame.K_a]:
         facingleft = True
         facingright = False
         facingup = False
         facingdown = False
-        player_pos.x -= 300 * dt
+        player_pos.x -= int(player_speed) * dt
     if keys[pygame.K_d]:
         facingleft = False
         facingright = True
         facingup = False
         facingdown = False
-        player_pos.x += 300 * dt
+        player_pos.x += int(player_speed) * dt
     if keys[pygame.K_UP]:
         facingleft = False
         facingright = False
