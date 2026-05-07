@@ -1,0 +1,7 @@
+{
+  "enemito_one": {
+    "health": 3,
+    "speed": 2,
+    "size": 30
+  }
+}

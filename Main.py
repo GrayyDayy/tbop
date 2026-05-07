@@ -6,6 +6,15 @@ import json
 with open("config.json") as file:
     config = json.load(file)
 
+with open("enemies.json") as file:
+    enemy_config = json.load(file)
+
+
+enemy_data = enemy_config["enemito_one"]
+enemy_health = enemy_data["health"]
+enemy_speed = enemy_data["speed"]
+enemy_size = enemy_data["size"]
+
 player_health = config["player_health"]
 player_speed = config["player_speed"]
 bullet_speed = config["bullet_speed"]
@@ -24,6 +33,7 @@ cooldown = 0.5
 timesinceshot = 0
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+enemy_pos = pygame.Vector2(200, 200)
 
 while running:
     currenttime = time.time()
