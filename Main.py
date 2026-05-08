@@ -29,7 +29,6 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 bullets = []
-cooldown = 0.5
 timesinceshot = 0
 facingleft = False
 facingright = False
