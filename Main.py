@@ -109,7 +109,7 @@ while running:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, 0, -bullet_speed))
+                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, 0, bullet_speed))
     if keys[pygame.K_LEFT]:
         facingleft = True
         facingright = False
@@ -118,7 +118,7 @@ while running:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, 0, -bullet_speed))
+                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, -bullet_speed, 0))
     if keys[pygame.K_RIGHT]:
         facingleft = False
         facingright = True
@@ -127,7 +127,7 @@ while running:
         if currenttime - timesinceshot > cooldown:
             timesinceshot = currenttime
             if len(bullets) < 6:
-                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, 0, -bullet_speed))
+                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, bullet_speed, 0))
 
 
 
