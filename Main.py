@@ -10,10 +10,11 @@ with open("enemies.json") as file:
     enemy_config = json.load(file)
 
 
-enemy_data = enemy_config["enemito_one"]
+enemy_data = enemy_config["elbooger"]
 enemy_health = enemy_data["health"]
 enemy_speed = enemy_data["speed"]
 enemy_size = enemy_data["size"]
+enemy_image = enemy_data["image"]
 
 player_health = config["player_health"]
 player_speed = config["player_speed"]
@@ -52,6 +53,7 @@ while running:
             bullets.remove(bullet)
 
     screen.blit(pygame.transform.scale(pygame.image.load("sprites/startroom.png"),(screen.get_width(), screen.get_height())), (0, 0), area=screen.get_rect())
+    screen.blit(pygame.image.load(enemy_image), (enemy_pos.x, enemy_pos.y), area=screen.get_rect())
 
     if facingleft:
         screen.blit(pygame.image.load("sprites/leftp.png"), (player_pos.x - 75, player_pos.y - 88),

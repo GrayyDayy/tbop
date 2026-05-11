@@ -1,8 +1,8 @@
 {
-  "enemito_one": {
+  "elbooger": {
     "health": 3,
-    "speed": 2,
+    "speed": 250,
     "size": 30,
-    "image": "sprites/"
+    "image": "sprites/elbooger.png"
   }
 }
