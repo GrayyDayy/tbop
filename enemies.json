@@ -1,7 +1,7 @@
 {
   "elbooger": {
     "health": 3,
-    "speed": 250,
+    "speed": 150,
     "size": 30,
     "image": "sprites/elbooger.png"
   }

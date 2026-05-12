@@ -15,6 +15,7 @@ enemy_health = enemy_data["health"]
 enemy_speed = enemy_data["speed"]
 enemy_size = enemy_data["size"]
 enemy_image = enemy_data["image"]
+enemy_living = True
 
 player_health = config["player_health"]
 player_speed = config["player_speed"]
@@ -53,7 +54,16 @@ while running:
             bullets.remove(bullet)
 
     screen.blit(pygame.transform.scale(pygame.image.load("sprites/startroom.png"),(screen.get_width(), screen.get_height())), (0, 0), area=screen.get_rect())
-    screen.blit(pygame.image.load(enemy_image), (enemy_pos.x, enemy_pos.y), area=screen.get_rect())
+
+    if enemy_living:
+        direction = player_pos - enemy_pos
+        distance = direction.length()
+        if distance > 5:
+            direction = direction.normalize()
+            enemy_pos += direction * enemy_speed * dt
+            screen.blit(pygame.image.load(enemy_image), (int(enemy_pos.x - 230), int(enemy_pos.y - 144)))
+        else:
+            enemy_living = False
 
     if facingleft:
         screen.blit(pygame.image.load("sprites/leftp.png"), (player_pos.x - 75, player_pos.y - 88),
