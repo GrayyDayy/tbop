@@ -43,7 +43,7 @@ enemy_pos = pygame.Vector2(200, 200)
 while running:
     currenttime = time.time()
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or player_health == 0:
             running = False
 
     for bullet in bullets[:]:
@@ -62,8 +62,8 @@ while running:
             direction = direction.normalize()
             enemy_pos += direction * enemy_speed * dt
             screen.blit(pygame.image.load(enemy_image), (int(enemy_pos.x - 230), int(enemy_pos.y - 144)))
-        else:
-            enemy_living = False
+        if player_pos == enemy_pos:
+            player_health -= 1
 
     if facingleft:
         screen.blit(pygame.image.load("sprites/leftp.png"), (player_pos.x - 75, player_pos.y - 88),
