@@ -40,6 +40,13 @@ facingdown = True
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 enemy_pos = pygame.Vector2(200, 200)
 
+waves = {
+    "1": {
+        "elbooger",
+        "elbooger"
+    }
+}
+
 while running:
     currenttime = time.time()
     for event in pygame.event.get():
