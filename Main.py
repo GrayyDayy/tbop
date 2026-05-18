@@ -1,41 +1,149 @@
 import pygame
+from Projectiles import Projectile
+import time
+import json
+
+with open("config.json") as file:
+    config = json.load(file)
+
+with open("enemies.json") as file:
+    enemy_config = json.load(file)
+
+
+enemy_data = enemy_config["elbooger"]
+enemy_health = enemy_data["health"]
+enemy_speed = enemy_data["speed"]
+enemy_size = enemy_data["size"]
+enemy_image = enemy_data["image"]
+enemy_living = True
+
+player_health = config["player_health"]
+player_speed = config["player_speed"]
+bullet_speed = config["bullet_speed"]
+bullet_size = config["bullet_size"]
+bullet_color = config["bullet_color"]
+cooldown = config["cooldown"]
+
 
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode()
 clock = pygame.time.Clock()
 running = True
 dt = 0
+bullets = []
+timesinceshot = 0
+facingleft = False
+facingright = False
+facingup = False
+facingdown = True
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+enemy_pos = pygame.Vector2(200, 200)
 
 while running:
+    currenttime = time.time()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill("white")
+    for bullet in bullets[:]:
+        bullet.x += bullet.vel_x
+        bullet.y += bullet.vel_y
 
-    pygame.draw.circle(screen, "green", player_pos, 40)
-    pygame.draw.circle(screen, "blue", player_pos, 20)
-    pygame.draw.circle(screen, "black", player_pos, 10)
+        if not (0 < bullet.x < screen.get_width() and 0 < bullet.y < screen.get_height()):
+            bullets.remove(bullet)
+
+    screen.blit(pygame.transform.scale(pygame.image.load("sprites/startroom.png"),(screen.get_width(), screen.get_height())), (0, 0), area=screen.get_rect())
+
+    if enemy_living:
+        direction = player_pos - enemy_pos
+        distance = direction.length()
+        if distance > 5:
+            direction = direction.normalize()
+            enemy_pos += direction * enemy_speed * dt
+            screen.blit(pygame.image.load(enemy_image), (int(enemy_pos.x - 230), int(enemy_pos.y - 144)))
+        else:
+            enemy_living = False
+
+    if facingleft:
+        screen.blit(pygame.image.load("sprites/leftp.png"), (player_pos.x - 75, player_pos.y - 88),
+                    area=screen.get_rect())
+    elif facingright:
+        screen.blit(pygame.image.load("sprites/rightp.png"), (player_pos.x - 75, player_pos.y - 88),
+                    area=screen.get_rect())
+    elif facingup:
+        screen.blit(pygame.image.load("sprites/backp.png"), (player_pos.x - 75, player_pos.y - 88),
+                    area=screen.get_rect())
+    elif facingdown:
+        screen.blit(pygame.image.load("sprites/frontp.png"), (player_pos.x - 75, player_pos.y - 88),
+                    area=screen.get_rect())
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
-        player_pos.y -= 300 * dt
+        facingleft = False
+        facingright = False
+        facingup = True
+        facingdown = False
+        player_pos.y -= int(player_speed) * dt
     if keys[pygame.K_s]:
-        player_pos.y += 300 * dt
+        facingleft = False
+        facingright = False
+        facingup = False
+        facingdown = True
+        player_pos.y += int(player_speed) * dt
     if keys[pygame.K_a]:
-        player_pos.x -= 300 * dt
+        facingleft = True
+        facingright = False
+        facingup = False
+        facingdown = False
+        player_pos.x -= int(player_speed) * dt
     if keys[pygame.K_d]:
-        player_pos.x += 300 * dt
+        facingleft = False
+        facingright = True
+        facingup = False
+        facingdown = False
+        player_pos.x += int(player_speed) * dt
     if keys[pygame.K_UP]:
-        pygame.draw.circle(screen, "blue", player_pos, 10)
+        facingleft = False
+        facingright = False
+        facingup = True
+        facingdown = False
+        if currenttime - timesinceshot > cooldown:
+            timesinceshot = currenttime
+            if len(bullets) < 6:
+                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, 0, -bullet_speed))
     if keys[pygame.K_DOWN]:
-        pygame.draw.circle(screen, "blue", player_pos, 10)
+        facingleft = False
+        facingright = False
+        facingup = False
+        facingdown = True
+        if currenttime - timesinceshot > cooldown:
+            timesinceshot = currenttime
+            if len(bullets) < 6:
+                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, 0, bullet_speed))
     if keys[pygame.K_LEFT]:
-        pygame.draw.circle(screen, "blue", player_pos, 10)
+        facingleft = True
+        facingright = False
+        facingup = False
+        facingdown = False
+        if currenttime - timesinceshot > cooldown:
+            timesinceshot = currenttime
+            if len(bullets) < 6:
+                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, -bullet_speed, 0))
     if keys[pygame.K_RIGHT]:
-        pygame.draw.circle(screen, "blue", player_pos, 10)
+        facingleft = False
+        facingright = True
+        facingup = False
+        facingdown = False
+        if currenttime - timesinceshot > cooldown:
+            timesinceshot = currenttime
+            if len(bullets) < 6:
+                bullets.append(Projectile(player_pos.x,player_pos.y, bullet_size, bullet_color, bullet_speed, 0))
+
+
+
+    for bullet in bullets:
+        bullet.draw(screen)
 
     pygame.display.flip()
 

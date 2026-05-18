@@ -1,0 +1,131 @@
+{
+  "beautifo": {
+    "health": 2,
+    "damage": 1,
+    "speed": 4,
+    "size": 24,
+    "bulletcolor": "pink",
+    "spawn_weight": 8,
+    "sprite": "sprites/beautifo.png"
+  },
+
+  "diablonaranja": {
+    "health": 5,
+    "damage": 2,
+    "speed": 3,
+    "size": 32,
+    "bulletcolor": "orange",
+    "spawn_weight": 6,
+    "sprite": "sprites/diablonaranja.png"
+  },
+
+  "diablorosa": {
+    "health": 4,
+    "damage": 2,
+    "speed": 4,
+    "size": 30,
+    "bulletcolor": "hotpink",
+    "spawn_weight": 5,
+    "sprite": "sprites/diablorosa.png"
+  },
+
+  "diabloverde": {
+    "health": 6,
+    "damage": 3,
+    "speed": 2,
+    "size": 35,
+    "bulletcolor": "green",
+    "spawn_weight": 4,
+    "sprite": "sprites/diabloverde.png"
+  },
+
+  "edperor": {
+    "health": 12,
+    "damage": 5,
+    "speed": 1,
+    "size": 50,
+    "bulletcolor": "purple",
+    "spawn_weight": 1,
+    "sprite": "sprites/edperor.png"
+  },
+
+  "elbooger": {
+    "health": 3,
+    "damage": 1,
+    "speed": 5,
+    "size": 20,
+    "bulletcolor": "lime",
+    "spawn_weight": 10,
+    "sprite": "sprites/elbooger.png"
+  },
+
+  "elwebo": {
+    "health": 8,
+    "damage": 4,
+    "speed": 2,
+    "size": 40,
+    "bulletcolor": "white",
+    "spawn_weight": 3,
+    "sprite": "sprites/elwebo.png"
+  },
+
+  "eyeloco": {
+    "health": 5,
+    "damage": 3,
+    "speed": 3,
+    "size": 28,
+    "bulletcolor": "red",
+    "spawn_weight": 5,
+    "sprite": "sprites/eyeloco.png"
+  },
+
+  "hexemo": {
+    "health": 7,
+    "damage": 4,
+    "speed": 2,
+    "size": 38,
+    "bulletcolor": "cyan",
+    "spawn_weight": 2,
+    "sprite": "sprites/hexemo.png"
+  },
+
+  "ryazz": {
+    "health": 15,
+    "damage": 6,
+    "speed": 1,
+    "size": 60,
+    "bulletcolor": "black",
+    "spawn_weight": 1,
+    "sprite": "sprites/ryazz.png"
+  },
+
+  "sabubble": {
+    "health": 2,
+    "damage": 1,
+    "speed": 6,
+    "size": 18,
+    "bulletcolor": "lightblue",
+    "spawn_weight": 12,
+    "sprite": "sprites/sabubble.png"
+  },
+
+  "squarely": {
+    "health": 10,
+    "damage": 5,
+    "speed": 2,
+    "size": 45,
+    "bulletcolor": "gray",
+    "spawn_weight": 2,
+    "sprite": "sprites/squarely.png"
+  },
+
+  "uglo": {
+    "health": 9,
+    "damage": 4,
+    "speed": 2,
+    "size": 42,
+    "bulletcolor": "darkgreen",
+    "spawn_weight": 3,
+    "sprite": "sprites/uglo.png"
+  }
+}
