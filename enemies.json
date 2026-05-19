@@ -2,51 +2,51 @@
   "beautifo": {
     "health": 2,
     "damage": 1,
-    "speed": 4,
+    "speed": 150,
     "size": 24,
     "bulletcolor": "pink",
     "spawn_weight": 8,
-    "sprite": "sprites/beautifo.png"
+    "image": "sprites/beautifo.png"
   },
 
   "diablonaranja": {
     "health": 5,
     "damage": 2,
-    "speed": 3,
+    "speed": 250,
     "size": 32,
     "bulletcolor": "orange",
     "spawn_weight": 6,
-    "sprite": "sprites/diablonaranja.png"
+    "image": "sprites/diablonaranja.png"
   },
 
   "diablorosa": {
     "health": 4,
     "damage": 2,
-    "speed": 4,
+    "speed": 300,
     "size": 30,
     "bulletcolor": "hotpink",
     "spawn_weight": 5,
-    "sprite": "sprites/diablorosa.png"
+    "image": "sprites/diablorosa.png"
   },
 
   "diabloverde": {
     "health": 6,
     "damage": 3,
-    "speed": 2,
+    "speed": 400,
     "size": 35,
     "bulletcolor": "green",
     "spawn_weight": 4,
-    "sprite": "sprites/diabloverde.png"
+    "image": "sprites/diabloverde.png"
   },
 
   "edperor": {
     "health": 12,
     "damage": 5,
-    "speed": 1,
+    "speed": 300,
     "size": 50,
     "bulletcolor": "purple",
     "spawn_weight": 1,
-    "sprite": "sprites/edperor.png"
+    "image": "sprites/edperor.png"
   },
 
   "elbooger": {
@@ -54,5 +54,54 @@
     "speed": 200,
     "size": 30,
     "image": "sprites/elbooger.png"
+  },
+
+  "elwebo": {
+    "health": 5,
+    "speed":250,
+    "size": 30,
+    "image": "sprites/elwebo.png"
+  },
+
+  "eyeloco": {
+    "health": 6,
+    "speed": 150,
+    "size": 30,
+    "image": "sprites/eyeloco.png"
+  },
+
+  "hexemo": {
+    "health": 3,
+    "speed": 200,
+    "size": 30,
+    "image": "sprites/hexemo.png"
+  },
+
+  "ryazz": {
+    "health": 7,
+    "speed": 200,
+    "size": 30,
+    "image": "sprites/elbooger.png"
+  },
+
+  "sabubble": {
+    "health": 8,
+    "speed": 250,
+    "size": 30,
+    "image": "sprites/sabubble.png"
+  },
+
+  "squarely": {
+    "health": 1,
+    "speed": 200,
+    "size": 30,
+    "image": "sprites/squarely.png"
+  },
+
+  "uglo": {
+    "health": 10,
+    "speed": 200,
+    "size": 30,
+    "image": "sprites/uglo.png"
   }
 }
