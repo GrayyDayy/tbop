@@ -24,6 +24,11 @@ running = True
 dt = 0
 bullets = []
 timesinceshot = 0
+timesincehit = 0
+
+health_bar_width = 200
+health_bar_height = 20
+maxhp = player_health
 
 facingleft, facingright, facingup, facingdown = False, False, False, True
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
@@ -70,7 +75,7 @@ waves = {
     5: ["sabubble"],
     6: ["eyeloco"],
     7: ["eyeloco", "hexemo"],
-    8: ["squarely", "squarely", "squarely", "squarely", "squarely", "squarely", "squarely", "squarely", "squarely", "squarely", "squarely"],
+    8: ["squarely", "squarely", "squarely"],
     9: ["uglo", "beautifo"],
     10: ["ryazz"],
     11: ["eyeloco", "eyeloco", "elwebo", "hexemo"],
@@ -102,6 +107,17 @@ def spawn_wave(wave_num):
         active_enemies.append(Enemy(enemy_type, spawn_pt.x + fuzz_x, spawn_pt.y + fuzz_y))
     return True
 
+
+def draw_health_bar(surface, x, y, current_health, max_health):
+    if current_health < 0:
+        current_health = 0
+    health_ratio = current_health / max_health
+    fill_width = int(health_bar_width * health_ratio)
+    background_rect = pygame.Rect(x, y, health_bar_width, health_bar_height)
+    foreground_rect = pygame.Rect(x, y, fill_width, health_bar_height)
+    pygame.draw.rect(surface, (200, 0, 0), background_rect)
+    pygame.draw.rect(surface, (0, 200, 0), foreground_rect)
+
 spawn_wave(current_wave)
 
 while running:
@@ -115,6 +131,11 @@ while running:
         current_wave += 1
         if not spawn_wave(current_wave):
             running = False
+            print("You Win!")
+
+    if player_health <= 0:
+        running = False
+        print("You Died!")
 
     for bullet in bullets[:]:
         bullet.x += bullet.vel_x
@@ -125,6 +146,7 @@ while running:
             continue
 
         bullet_rect = pygame.Rect(bullet.x, bullet.y, bullet_size, bullet_size)
+
         for enemy in active_enemies[:]:
             enemy_rect = pygame.Rect(enemy.pos.x - (enemy.size / 2), enemy.pos.y - (enemy.size / 2), enemy.size,
                                      enemy.size)
@@ -136,6 +158,16 @@ while running:
                 if enemy.health <= 0:
                     active_enemies.remove(enemy)
                 break
+
+    for enemy in active_enemies[:]:
+        player_rect = pygame.Rect(player_pos.x - 75, player_pos.y - 88, 150, 176)
+        enemy_rect = pygame.Rect(enemy.pos.x - (enemy.size / 2), enemy.pos.y - (enemy.size / 2), enemy.size,
+                             enemy.size)
+
+        if player_rect.colliderect(enemy_rect):
+            if currenttime - timesincehit > 1:
+                player_health -= 1
+                timesincehit = currenttime
 
     screen.blit(background_img, (0, 0))
 
@@ -196,6 +228,8 @@ while running:
 
     for bullet in bullets:
         bullet.draw(screen)
+
+    draw_health_bar(screen, 20, 20, player_health, maxhp)
 
     pygame.display.flip()
     dt = clock.tick(60) / 1000
