@@ -1,43 +1,34 @@
 import requests
 import random
 
-response = requests.get('https://the-trivia-api.com/v2/questions')
 
-print(response.status_code)
-print(response.text)
+def get_trivia_question():
 
-if response.headers.get("Content-Type", "").startswith("application/json"):
-    data = response.json()
-    print(data)
+    try:
+        response = requests.get(
+            'https://the-trivia-api.com/v2/questions'
+        )
 
-    score = 0
+        data = response.json()
 
-    for q in data:
+        q = data[0]
+
         question = q["question"]["text"]
+
         correct = q["correctAnswer"]
+
         options = q["incorrectAnswers"] + [correct]
 
         random.shuffle(options)
 
-        print("\n" + question)
+        return {
+            "question": question,
+            "correct": correct,
+            "options": options
+        }
 
-        for i, option in enumerate(options):
-            print(f"{i + 1}. {option}")
+    except Exception as e:
 
-        user_input = input("Enter the number of your answer: ")
+        print("Trivia API Error:", e)
 
-        try:
-            user_choice = options[int(user_input) - 1]
-
-            if user_choice == correct:
-                print(" Correct!")
-                score += 1
-            else:
-                print(f" Wrong! The correct answer was: {correct}")
-        except:
-            print("Invalid input.")
-
-    print(f"\nFinal score: {score}/{len(data)}")
-
-else:
-    print("Not JSON:", response.text)
+        return None

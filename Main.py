@@ -3,6 +3,7 @@ from Projectiles import Projectile
 import time
 import json
 import random
+from trivia import get_trivia_question
 
 with open("config.json") as file:
     config = json.load(file)
@@ -25,6 +26,11 @@ dt = 0
 bullets = []
 timesinceshot = 0
 timesincehit = 0
+trivia_active = False
+trivia_data = {}
+selected_answer = 0
+trivia_done = False
+wave_transition = False
 
 health_bar_width = 200
 health_bar_height = 20
@@ -64,7 +70,6 @@ class Enemy:
             self.pos += direction * self.speed * delt
 
     def draw(self, surface):
-        # Anchor transformations relative to center origins
         surface.blit(self.image, (int(self.pos.x - 230), int(self.pos.y - 144)))
 
 waves = {
@@ -126,12 +131,73 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if trivia_active and event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                selected_answer = (
+                                          selected_answer - 1
+                                  ) % len(trivia_data["options"])
+            if event.key == pygame.K_DOWN:
+                selected_answer = (
+                                          selected_answer + 1
+                                  ) % len(trivia_data["options"])
+            if event.key == pygame.K_RETURN:
+                chosen = trivia_data["options"][selected_answer]
+                if chosen == trivia_data["correct"]:
 
-    if len(active_enemies) == 0:
+                    print("Correct!")
+                    player_health += 2
+                else:
+
+                    print("Wrong!")
+                    player_health -= 2
+                trivia_active = False
+                trivia_done = True
+                spawn_wave(current_wave)
+                wave_transition = False
+    if trivia_active:
+        screen.fill((15, 15, 15))
+        title_font = pygame.font.SysFont(None, 60)
+        answer_font = pygame.font.SysFont(None, 40)
+        title = title_font.render(
+            "TRIVIA CHALLENGE",
+            True,
+            (255, 255, 0)
+        )
+        screen.blit(title, (100, 80))
+        question = answer_font.render(
+            trivia_data["question"],
+            True,
+            (255, 255, 255)
+        )
+        screen.blit(question, (100, 200))
+        for i, option in enumerate(trivia_data["options"]):
+            color = (
+                (0, 255, 0)
+                if i == selected_answer
+                else (255, 255, 255)
+            )
+            text = answer_font.render(
+                option,
+                True,
+                color
+            )
+            screen.blit(text, (120, 300 + i * 60))
+        pygame.display.flip()
+        continue
+
+    if len(active_enemies) == 0 and not wave_transition:
+        wave_transition = True
         current_wave += 1
-        if not spawn_wave(current_wave):
-            running = False
-            print("You Win!")
+        if current_wave == 6 and not trivia_done:
+            trivia_data = get_trivia_question()
+            if trivia_data:
+                trivia_active = True
+        else:
+            if spawn_wave(current_wave):
+                wave_transition = False
+            else:
+                running = False
+                print("You Win!")
 
     if player_health <= 0:
         running = False
@@ -140,17 +206,13 @@ while running:
     for bullet in bullets[:]:
         bullet.x += bullet.vel_x
         bullet.y += bullet.vel_y
-
         if not (0 < bullet.x < screen.get_width() and 0 < bullet.y < screen.get_height()):
             bullets.remove(bullet)
             continue
-
         bullet_rect = pygame.Rect(bullet.x, bullet.y, bullet_size, bullet_size)
-
         for enemy in active_enemies[:]:
             enemy_rect = pygame.Rect(enemy.pos.x - (enemy.size / 2), enemy.pos.y - (enemy.size / 2), enemy.size,
                                      enemy.size)
-
             if bullet_rect.colliderect(enemy_rect):
                 enemy.health -= 1
                 if bullet in bullets:
@@ -163,7 +225,6 @@ while running:
         player_rect = pygame.Rect(player_pos.x - 75, player_pos.y - 88, 150, 176)
         enemy_rect = pygame.Rect(enemy.pos.x - (enemy.size / 2), enemy.pos.y - (enemy.size / 2), enemy.size,
                              enemy.size)
-
         if player_rect.colliderect(enemy_rect):
             if currenttime - timesincehit > 1:
                 player_health -= 1
