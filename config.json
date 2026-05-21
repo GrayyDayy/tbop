@@ -5,6 +5,7 @@
   "cooldown": 0.5,
   "bullet_size": 12,
   "bullet_color": "red",
+  "player_damage": 1,
 "rooms": {
   "starting_room": {
     "enemy_count": 0,

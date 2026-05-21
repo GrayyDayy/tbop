@@ -16,6 +16,7 @@ player_speed = config["player_speed"]
 bullet_speed = config["bullet_speed"]
 bullet_size = config["bullet_size"]
 bullet_color = config["bullet_color"]
+player_damage = config["player_damage"]
 cooldown = config["cooldown"]
 
 pygame.init()
@@ -143,11 +144,15 @@ while running:
             if event.key == pygame.K_RETURN:
                 chosen = trivia_data["options"][selected_answer]
                 if chosen == trivia_data["correct"]:
-
+                    rand = random.randint(1,3)
                     print("Correct!")
-                    player_health += 2
+                    if rand == 1:
+                        player_health += 2
+                    elif rand == 2:
+                        player_speed += 100
+                    elif rand == 3:
+                        player_damage += 2
                 else:
-
                     print("Wrong!")
                     player_health -= 2
                 trivia_active = False
@@ -227,7 +232,7 @@ while running:
                              enemy.size)
         if player_rect.colliderect(enemy_rect):
             if currenttime - timesincehit > 1:
-                player_health -= 1
+                player_health -= player_damage
                 timesincehit = currenttime
 
     screen.blit(background_img, (0, 0))
