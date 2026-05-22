@@ -10,8 +10,8 @@
 
 3. Known Bugs or errors in the code and how to avoid them
 enemies don't spawn off map
+after beating trivia, enemy spawns miles away from map, you must wait for it to come
 poor hitboxes
-game not currently possible to beat bc of enemy speed
 
 4. Which partner was responsible for which concepts of the project OR if you worked alone, which concepts you used, and where they appear in the project.
 Collections - Eddie & Saba

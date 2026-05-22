@@ -12,7 +12,7 @@
   "diablonaranja": {
     "health": 5,
     "damage": 2,
-    "speed": 250,
+    "speed": 150,
     "size": 32,
     "bulletcolor": "orange",
     "spawn_weight": 6,
@@ -22,7 +22,7 @@
   "diablorosa": {
     "health": 4,
     "damage": 2,
-    "speed": 300,
+    "speed": 200,
     "size": 30,
     "bulletcolor": "hotpink",
     "spawn_weight": 5,
@@ -32,7 +32,7 @@
   "diabloverde": {
     "health": 6,
     "damage": 3,
-    "speed": 400,
+    "speed": 150,
     "size": 35,
     "bulletcolor": "green",
     "spawn_weight": 4,
@@ -42,7 +42,7 @@
   "edperor": {
     "health": 12,
     "damage": 5,
-    "speed": 300,
+    "speed": 250,
     "size": 50,
     "bulletcolor": "purple",
     "spawn_weight": 1,
@@ -58,7 +58,7 @@
 
   "elwebo": {
     "health": 5,
-    "speed":250,
+    "speed":200,
     "size": 30,
     "image": "sprites/elwebo.png"
   },
@@ -86,7 +86,7 @@
 
   "sabubble": {
     "health": 8,
-    "speed": 250,
+    "speed": 200,
     "size": 30,
     "image": "sprites/sabubble.png"
   },
